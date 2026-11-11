@@ -1,0 +1,32 @@
+[package]
+name = "numeric-short-url"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dioxus = { version = "0.7", features = ["fullstack"] }
+serde = { version = "1", features = ["derive"] }
+
+# server-only
+anyhow = { version = "1", optional = true }
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "tls-rustls", "postgres", "migrate", "macros"], optional = true }
+tokio = { version = "1", features = ["full"], optional = true }
+url = { version = "2", optional = true }
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"
+futures = "0.3"
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
+server = ["dioxus/server", "dep:anyhow", "dep:sqlx", "dep:tokio", "dep:url"]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+
+[profile.release.package."*"]
+opt-level = "z"

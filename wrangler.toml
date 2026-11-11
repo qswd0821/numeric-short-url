@@ -1,0 +1,18 @@
+#:schema node_modules/wrangler/config-schema.json
+# Cloudflare Worker: 공개 접점. Dioxus 웹 번들을 정적 자산으로 제공하고
+# `/{단축 번호}` 와 `/api/*` 는 Railway 로 프록시한다 (worker/index.js, docs/adr/0001 참고).
+name = "numeric-short-url"
+main = "worker/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[assets]
+# scripts/build-web.sh 가 만든 Dioxus 웹 번들 (사전 렌더링된 index.html 포함)
+directory = "./dist/public"
+binding = "ASSETS"
+# 모든 요청을 먼저 Worker 가 받아 경로별로 프록시 / 정적 자산을 고른다.
+run_worker_first = true
+
+[vars]
+# Railway 서비스의 공개 도메인 (비밀 값 아님). 배포 후 실제 값으로 바꾼다.
+RAILWAY_ORIGIN = "https://CHANGE-ME.up.railway.app"
