@@ -1,7 +1,7 @@
 # Railway 배포용 이미지: Dioxus 풀스택 서버 (SSR + 서버 함수 + /{단축 번호} 리디렉션)
 
 # ── build ───────────────────────────────────────────────────────────────
-FROM rust:1-bookworm AS build
+FROM rust:1-trixie AS build
 WORKDIR /app
 
 RUN rustup target add wasm32-unknown-unknown \
@@ -13,7 +13,7 @@ COPY . .
 RUN dx bundle --web --fullstack --release --out-dir /app/dist
 
 # ── runtime ─────────────────────────────────────────────────────────────
-FROM debian:bookworm-slim AS runtime
+FROM debian:trixie-slim AS runtime
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates \
  && rm -rf /var/lib/apt/lists/*

@@ -15,4 +15,4 @@ run_worker_first = true
 
 [vars]
 # Railway 서비스의 공개 도메인 (비밀 값 아님). 배포 후 실제 값으로 바꾼다.
-RAILWAY_ORIGIN = "https://CHANGE-ME.up.railway.app"
+RAILWAY_ORIGIN = "https://web-production-7245f816.up.railway.app"
