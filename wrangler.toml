@@ -5,6 +5,7 @@ name = "numeric-short-url"
 main = "worker/index.js"
 compatibility_date = "2026-11-01"
 workers_dev = true
+preview_urls = false
 
 [assets]
 # scripts/build-web.sh 가 만든 Dioxus 웹 번들 (사전 렌더링된 index.html 포함)
